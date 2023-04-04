@@ -1,25 +1,34 @@
-import logo from './logo.svg';
-import './App.css';
+import React, {useContext} from 'react';
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./pages/layout";
+import Home from "./pages/home";
+import Blogs from "./pages/blogs";
+import Contact from "./pages/contact";
+import NoPage from "./pages/nopage";
+import {Users} from "./pages/users";
+import Batch from "./pages/batch";
 
-function App() {
+import { BookContext } from './bookContext';
+
+export default function App() {
+  const books= useContext(BookContext);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <BookContext.Provider value={books}>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<Home />} />
+          <Route path="blogs" element={<Blogs />} />
+          <Route path="contact" element={<Contact />} />
+          <Route path="contact/:id" element={<Contact />} />
+          <Route path="users" element={<Users />} />
+          
+           <Route path="batch" element={<Batch />} />
+          <Route path="*" element={<NoPage />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
+    </BookContext.Provider>
   );
 }
-
-export default App;
