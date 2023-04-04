@@ -24,13 +24,7 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-  deploy:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-      - name: Install dependencies
-        run: npm ci
-      - name: Push changes
-        uses: ptienchuan/deploy-github-pages-action@main
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Deploy 🚀
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        folder: build # The folder the action should deploy.
